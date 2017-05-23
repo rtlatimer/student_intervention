@@ -497,7 +497,8 @@ Feature values:
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import any additional functionality you may need here</span>
-<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span> 
+<span class="c1">#future reference: Stratified Shuffle Split is preferred unbalanced data because it preserves the % of samples for each class</span>
 <span class="c1"># TODO: Set the number of training points</span>
 <span class="n">num_train</span> <span class="o">=</span> <span class="mi">300</span>
 
@@ -728,6 +729,7 @@ Https://www.analyticsvidhya.com/blog/author/sunil-ray/. "Understanding Support V
 <span class="n">y_train_300</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">300</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">clf</span> <span class="ow">in</span> <span class="p">[</span><span class="n">clf_A</span><span class="p">,</span> <span class="n">clf_B</span><span class="p">,</span> <span class="n">clf_C</span><span class="p">]:</span>
+    <span class="c1">#future reference: use a for loop on code below instead of typing it all out</span>
     <span class="k">for</span> <span class="n">train</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">X_train_100</span><span class="p">,</span> <span class="n">y_train_100</span><span class="p">),</span> <span class="p">(</span><span class="n">X_train_200</span><span class="p">,</span> <span class="n">y_train_200</span><span class="p">),</span> <span class="p">(</span><span class="n">X_train_300</span><span class="p">,</span> <span class="n">y_train_300</span><span class="p">)]:</span>
         <span class="n">train_predict</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">train</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">train</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
         <span class="k">print</span>
@@ -983,7 +985,12 @@ F1 score for test set: 0.7353.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> The goal for this project is to accurately identify students who might need early intervention before they fail to graduate. We started by gathering all possible information we had on 395 students, consisting of information such as: age, whether the student has internet access at home, number of absences, and more (30 different features in total). Of those 395 students, 265 students passed and 130 failed. The Support Vector Machine model works to identify commonly found behaviors or traits that differ between students that graduated and those that failed. The model will then establish a decision boundary that acts as a dividing line between students that are likely to pass and students that are likely to fail. With a certain level of confidence, we now have a better idea of what types of behaviors should start to raise red flags that we can address before a student ends up on a wayward path.</p>
+<p><strong>Answer: </strong> The goal for this project was to accurately identify students who might need an early intervention before they fail to graduate. We started by gathering all possible information we had on 395 students, consisting of information such as: age, whether the student has internet access at home, number of absences, and more (30 different features in total). Of those 395 students, 265 students passed and 130 failed. Because we have a vast amount of features for each student but a relatively small sample size of students to analyze, it was deemed that a Support Vector Machine model (SVM) would be a suitable candidate for analysis.</p>
+<p>The Support Vector Machine model works to identify commonly found behaviors or traits that differ between students that graduated and those that failed. It does this by establishing a decision boundary that acts as a border between the two groups. An optimal decision boundary is one that, not only, draws a dividing line between the two groups, but also maximizes the margins of separation of the groups. The illustration below should provide a valuable visualisation. A good example would be to the Korean Demilitarized Zone that separates North and South Korea. Imagine the "Best Line" as the border itself, but each "Support Line" acts as an additional barrier that prevents individuals from getting too close to the border. By maximizing the distance of separation, we should have a clearer distinction between the two groups.
+<img src="https://udacity-github-sync-content.s3.amazonaws.com/_imgs/8650/1461641603/SVM_2.png"></p>
+<p>One issue arises when we are faced with a nonlinearly-separable dataset (try saying that three times fast!) where there isn't a clear visual separation between the two groups. Fortunately for us, the SVM model has a few tricks up its sleeve! By using what's known as the 'Kernel Trick' (illustrated below), we are able to tweak the unseparable data points into a more digestable form that ALSO maintains the core relationships between the points. We're essentially translating the data from a foreign language into our native tongue, where the story stays the same, but is told in a language we can better understand.
+<img src="https://udacity-github-sync-content.s3.amazonaws.com/_imgs/8650/1461641606/SVM.png"></p>
+<p>When faced with information on a new student, the model can now chart where he/she fits in relation to the dividing line, and predict which group the new student belongs with. With a certain level of confidence, we now have a better idea of what types of behaviors should start to raise red flags that we can address before a student ends up on a wayward path.</p>
 
 </div>
 </div>
